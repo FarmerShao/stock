@@ -11,42 +11,42 @@ import java.io.UnsupportedEncodingException;
 import java.security.SecureRandom;
 
 /**
- * AESEncrypter
+ * AesEncryptUtil
  *
  * @author Shao Yu
  * @date 2019/5/5 19:19
- * @since
+ * @since 1.0.0
  **/
 @Slf4j
-public class AesEncrypter {
+public class AesEncryptUtil {
 
 
     /**
      * 加密
-     * @param msg
-     * @param key
-     * @return
+     * @param msg   加密原字符串
+     * @param key   盐
+     * @return AES 加密后的字符串
      * @throws Exception
      */
     private static String encrypt(String msg, String key) throws Exception {
-        KeyGenerator kgen = KeyGenerator.getInstance("AES");
+        KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
         //需要自己手动设置
         SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
         random.setSeed(key.getBytes());
-        kgen.init(128, random);
-        SecretKey generateKey = kgen.generateKey();
+        keyGenerator.init(128, random);
+        SecretKey generateKey = keyGenerator.generateKey();
         Cipher cipher = Cipher.getInstance("AES");
         cipher.init(Cipher.ENCRYPT_MODE, generateKey);
         return asHex(cipher.doFinal(msg.getBytes()));
     }
 
     private static String decrypt(String value, String key) throws Exception {
-        KeyGenerator kgen = KeyGenerator.getInstance("AES");
+        KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
         //需要自己手动设置
         SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
         random.setSeed(key.getBytes());
-        kgen.init(128, random);
-        SecretKey genKey = kgen.generateKey();
+        keyGenerator.init(128, random);
+        SecretKey genKey = keyGenerator.generateKey();
         Cipher cipher = Cipher.getInstance("AES");
         cipher.init(Cipher.DECRYPT_MODE, genKey);
         return new String(cipher.doFinal(asBin(value)));

@@ -45,7 +45,7 @@ public class JwtUtil {
                     // 设置头部信息 Header
                     .withHeader(map)
                     // 设置 自定义
-                    .withClaim("very", AesEncrypter.getEncrypt(userName, Constant.AES_KEY))
+                    .withClaim("very", AesEncryptUtil.getEncrypt(userName, Constant.AES_KEY))
                     .withClaim("role", role)
                     .withClaim("roleName", roleName)
                     // iss-签发人：签名是有谁生成 例如 服务器
