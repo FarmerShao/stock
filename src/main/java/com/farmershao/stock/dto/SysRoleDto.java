@@ -8,8 +8,9 @@ import lombok.Setter;
 /**
  * 返回 web 角色实体
  *
- * @author : Zhao Da
- * @since : 2019/4/29 09:33
+ * @author : Shao Yu
+ * @date 2019/5/5 19:19
+ * @since : 1.0.0
  */
 @ApiModel(description = "角色列表")
 @Getter

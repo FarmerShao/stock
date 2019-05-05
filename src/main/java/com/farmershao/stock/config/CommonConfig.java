@@ -8,9 +8,9 @@ import org.springframework.context.annotation.Configuration;
 /**
  * CommonConfig
  *
- * @author Shao Yu
- * @date 2019/5/5 19:08
- * @since
+ * @author : Shao Yu
+ * @date 2019/5/5 19:19
+ * @since : 1.0.0
  **/
 @Configuration
 @Getter

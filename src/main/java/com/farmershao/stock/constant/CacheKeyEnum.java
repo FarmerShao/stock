@@ -3,9 +3,9 @@ package com.farmershao.stock.constant;
 /**
  * CacheKeyEnum
  *
- * @author Shao Yu
- * @date 2019/5/5 19:25
- * @since
+ * @author : Shao Yu
+ * @date 2019/5/5 19:19
+ * @since : 1.0.0
  **/
 public enum  CacheKeyEnum {
 

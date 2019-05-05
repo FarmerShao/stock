@@ -27,8 +27,9 @@ import java.util.Map;
 /**
  * JWT 鉴权
  *
- * @author : Zhao Da
- * @since : 2019/4/28 10:16
+ * @author : Shao Yu
+ * @date 2019/5/5 19:19
+ * @since : 1.0.0
  */
 @Component
 @Slf4j

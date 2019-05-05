@@ -7,10 +7,9 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- *
- *
- * @author : Zhao Da
- * @since : 2019/4/28 17:17
+ * @author : Shao Yu
+ * @date 2019/5/5 19:19
+ * @since : 1.0.0
  */
 public interface SysRoleMapper {
     int deleteByPrimaryKey(Long id);

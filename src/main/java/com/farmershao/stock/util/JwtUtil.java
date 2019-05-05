@@ -20,8 +20,9 @@ import java.util.Map;
 /**
  * JSON Web Token
  *
- * @author : Zhao Da
- * @since : 2019/4/28 10:29
+ * @author : Shao Yu
+ * @date 2019/5/5 19:19
+ * @since : 1.0.0
  */
 @Component
 @Slf4j
@@ -62,7 +63,7 @@ public class JwtUtil {
                     .withExpiresAt(expireDate)
                     // 签名 Signature
                     .sign(algorithm);
-        } catch (JWTCreationException exception){
+        } catch (JWTCreationException exception) {
             log.error("create token error", exception);
         }
         return "";
@@ -76,7 +77,7 @@ public class JwtUtil {
                     .build();
             DecodedJWT jwt = verifier.verify(token);
             return jwt.getClaims();
-        } catch (JWTVerificationException exception){
+        } catch (JWTVerificationException exception) {
             throw new JWTVerificationException("parse token error");
         }
     }
