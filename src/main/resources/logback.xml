@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-	<substitutionProperty name="log.base" value="${apps.log.base}/web/" />
+	<substitutionProperty name="log.base" value="d:/web/log" />
 
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
@@ -79,7 +79,7 @@
 		</filter>
 	</appender>
 
-	<root level="${apps.log.level}">
+	<root level="info">
 		<appender-ref ref="TRACE_FILE" />
 		<appender-ref ref="INFO_FILE" />
 		<appender-ref ref="DEBUG_FILE" />
