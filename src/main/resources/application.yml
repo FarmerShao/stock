@@ -52,3 +52,6 @@ jwt:
   #jwt - 跨域白名单
   origin:
     ip: 127.0.0.1
+system:
+  dev:
+    mode: true
