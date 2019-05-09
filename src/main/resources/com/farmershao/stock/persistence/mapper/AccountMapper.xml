@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.farmershao.stock.persistence.mapper.AccountMapper">
+  <resultMap id="BaseResultMap" type="com.farmershao.stock.persistence.model.Account">
+    <!--@mbg.generated-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="disable_flag" jdbcType="SMALLINT" property="disableFlag" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="total_out_money" jdbcType="DECIMAL" property="totalOutMoney" />
+    <result column="total_in_money" jdbcType="DECIMAL" property="totalInMoney" />
+    <result column="amount" jdbcType="DECIMAL" property="amount" />
+    <result column="id_card" jdbcType="VARCHAR" property="idCard" />
+    <result column="truth_name" jdbcType="VARCHAR" property="truthName" />
+    <result column="broker" jdbcType="INTEGER" property="broker" />
+    <result column="broker_name" jdbcType="VARCHAR" property="brokerName" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, mobile, disable_flag, nickname, `password`, total_out_money, total_in_money, 
+    amount, id_card, truth_name, broker, broker_name, created_at, last_login_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from stock_account
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.farmershao.stock.persistence.model.Account" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into stock_account
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="disableFlag != null">
+        disable_flag,
+      </if>
+      <if test="nickname != null">
+        nickname,
+      </if>
+      <if test="password != null">
+        `password`,
+      </if>
+      <if test="totalOutMoney != null">
+        total_out_money,
+      </if>
+      <if test="totalInMoney != null">
+        total_in_money,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="idCard != null">
+        id_card,
+      </if>
+      <if test="truthName != null">
+        truth_name,
+      </if>
+      <if test="broker != null">
+        broker,
+      </if>
+      <if test="brokerName != null">
+        broker_name,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="lastLoginTime != null">
+        last_login_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="disableFlag != null">
+        #{disableFlag,jdbcType=SMALLINT},
+      </if>
+      <if test="nickname != null">
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="totalOutMoney != null">
+        #{totalOutMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="totalInMoney != null">
+        #{totalInMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="idCard != null">
+        #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="truthName != null">
+        #{truthName,jdbcType=VARCHAR},
+      </if>
+      <if test="broker != null">
+        #{broker,jdbcType=INTEGER},
+      </if>
+      <if test="brokerName != null">
+        #{brokerName,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginTime != null">
+        #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.farmershao.stock.persistence.model.Account">
+    <!--@mbg.generated-->
+    update stock_account
+    <set>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="disableFlag != null">
+        disable_flag = #{disableFlag,jdbcType=SMALLINT},
+      </if>
+      <if test="nickname != null">
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        `password` = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="totalOutMoney != null">
+        total_out_money = #{totalOutMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="totalInMoney != null">
+        total_in_money = #{totalInMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="idCard != null">
+        id_card = #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="truthName != null">
+        truth_name = #{truthName,jdbcType=VARCHAR},
+      </if>
+      <if test="broker != null">
+        broker = #{broker,jdbcType=INTEGER},
+      </if>
+      <if test="brokerName != null">
+        broker_name = #{brokerName,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginTime != null">
+        last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

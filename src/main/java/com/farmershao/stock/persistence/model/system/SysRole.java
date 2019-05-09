@@ -1,4 +1,4 @@
-package com.farmershao.stock.persistence.model;
+package com.farmershao.stock.persistence.model.system;
 
 import lombok.Getter;
 import lombok.Setter;

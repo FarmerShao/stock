@@ -1,7 +1,7 @@
-package com.farmershao.stock.persistence.mapper;
+package com.farmershao.stock.persistence.mapper.system;
 
 import com.farmershao.stock.dto.SysRoleDto;
-import com.farmershao.stock.persistence.model.SysRole;
+import com.farmershao.stock.persistence.model.system.SysRole;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

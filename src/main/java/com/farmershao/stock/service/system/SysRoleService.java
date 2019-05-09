@@ -2,8 +2,8 @@ package com.farmershao.stock.service.system;
 
 import com.farmershao.stock.constant.CacheKeyEnum;
 import com.farmershao.stock.dto.SysRoleDto;
-import com.farmershao.stock.persistence.mapper.SysRoleMapper;
-import com.farmershao.stock.persistence.model.SysRole;
+import com.farmershao.stock.persistence.mapper.system.SysRoleMapper;
+import com.farmershao.stock.persistence.model.system.SysRole;
 import com.farmershao.stock.util.RedisUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
