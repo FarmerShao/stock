@@ -7,7 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * Account
+ * User
  *
  * @author Shao Yu
  * @since 2019/5/5 19:14
@@ -15,7 +15,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Account {
+public class User {
     private Integer id;
 
     /**

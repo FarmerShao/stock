@@ -22,7 +22,7 @@ CREATE TABLE `sys_admin` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE `stock_account` (
+CREATE TABLE `stock_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `mobile` varchar(100) NOT NULL DEFAULT'' COMMENT '手机号码',
   `disable_flag` smallint(2)  NOT NULL DEFAULT 1 COMMENT '1 启用 2 黑名单',
@@ -49,6 +49,28 @@ CREATE TABLE `stock_manager` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT '经纪人' ;
 
-
+CREATE TABLE `stock_account` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `trade_server_ip` varchar(50) NOT NULL COMMENT '交易服务器IP',
+  `trade_port` int(10) DEFAULT NULL COMMENT '端口号',
+  `stock_jobber_id` int(10) DEFAULT NULL COMMENT '券商ID',
+  `stock_exchange_id` int(10) DEFAULT NULL COMMENT '营业部ID',
+  `account_type` int(10) DEFAULT NULL COMMENT '账号类型',
+  `account_no` varchar(50) DEFAULT NULL COMMENT '登录账号',
+  `bankroll_account` varchar(50) DEFAULT NULL COMMENT '资金账号',
+  `account_password` varchar(50) DEFAULT NULL COMMENT '登录密码',
+  `communication_password` varchar(50) DEFAULT NULL COMMENT '通讯密码',
+  `financing` int(1) DEFAULT NULL COMMENT '是否为融券账号 1 是 2 不是',
+  `delete_flag` int(1) DEFAULT '0' COMMENT '0 未删除 1 删除',
+  `is_able` int(1) DEFAULT NULL COMMENT '0 可用 1不可用',
+  `qs_flag` int(1) DEFAULT NULL COMMENT '券商编号',
+  `amount_limit` decimal(14,2) DEFAULT '0.00' COMMENT '单支股票限额',
+  `creator` varchar(255) CHARACTER SET utf8mb4 DEFAULT NULL,
+  `modifier` varchar(255) CHARACTER SET utf8mb4 DEFAULT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `collateral` int(1) DEFAULT '2' COMMENT '是否允许担保品建仓 1 允许 2 不允许',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COMMENT '股票账户' ;
 
 

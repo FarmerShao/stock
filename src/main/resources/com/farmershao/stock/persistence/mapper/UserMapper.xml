@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.farmershao.stock.persistence.mapper.AccountMapper">
-  <resultMap id="BaseResultMap" type="com.farmershao.stock.persistence.model.Account">
+<mapper namespace="com.farmershao.stock.persistence.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.farmershao.stock.persistence.model.User">
     <!--@mbg.generated-->
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="mobile" jdbcType="VARCHAR" property="mobile" />
@@ -27,12 +27,12 @@
     <!--@mbg.generated-->
     select 
     <include refid="Base_Column_List" />
-    from stock_account
+    from stock_user
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.farmershao.stock.persistence.model.Account" useGeneratedKeys="true">
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.farmershao.stock.persistence.model.User" useGeneratedKeys="true">
     <!--@mbg.generated-->
-    insert into stock_account
+    insert into stock_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="mobile != null">
         mobile,
@@ -116,9 +116,9 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.farmershao.stock.persistence.model.Account">
+  <update id="updateByPrimaryKeySelective" parameterType="com.farmershao.stock.persistence.model.User">
     <!--@mbg.generated-->
-    update stock_account
+    update stock_user
     <set>
       <if test="mobile != null">
         mobile = #{mobile,jdbcType=VARCHAR},
