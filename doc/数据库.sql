@@ -65,12 +65,53 @@ CREATE TABLE `stock_account` (
   `is_able` int(1) DEFAULT NULL COMMENT '0 可用 1不可用',
   `qs_flag` int(1) DEFAULT NULL COMMENT '券商编号',
   `amount_limit` decimal(14,2) DEFAULT '0.00' COMMENT '单支股票限额',
-  `creator` varchar(255) CHARACTER SET utf8mb4 DEFAULT NULL,
-  `modifier` varchar(255) CHARACTER SET utf8mb4 DEFAULT NULL,
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `collateral` int(1) DEFAULT '2' COMMENT '是否允许担保品建仓 1 允许 2 不允许',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COMMENT '股票账户' ;
+
+CREATE TABLE `stock_risk_management` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '唯一识别',
+  `min_lr` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '最小杠杆比例',
+  `max_lr` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '最大杠杆比例',
+  `default_stop_pr` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '默认止盈比例',
+  `max_stop_pr` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '最大止盈比例',
+  `min_margin` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '最小保证金金额',
+  `max_loss_mr` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '保证金最大亏损比例',
+  `keeping_mr` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '维持保证金担保比例',
+  `strategy_max_point` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '单个策略最大点买金额',
+  `user_max_point` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '个人最大点买金额',
+  `user_max_buy` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '个人持仓总市值最大限额',
+  `user_max_lose` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '允许最大跌幅',
+  `user_max_increase` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '允许最大涨幅',
+  `user_max_hold` decimal(14,2) NOT NULL DEFAULT '0.00' COMMENT '个人单支股票最大持仓市值',
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT '风控配置表' ;
+
+CREATE TABLE `stock_user_bank` (
+  `id` bigint(11) unsigned zerofill NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `card_no` varchar(100) NOT NULL COMMENT '银行卡号',
+  `id_Card` varchar(100) NOT NULL COMMENT '身份证号',
+  `uname` varchar(50) NOT NULL COMMENT '姓名',
+  `phone` varchar(100) NOT NULL COMMENT '手机号',
+  `user_id` int(20) NOT NULL,
+  `no_agree` varchar(30) DEFAULT NULL COMMENT '协议号',
+  `bank_name` varchar(30) NOT NULL COMMENT '银行名称',
+  `creator` varchar(255) DEFAULT NULL,
+  `modifier` varchar(255) DEFAULT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `checkedstate` varchar(1) DEFAULT NULL COMMENT '选中状态 0.未选中 1.已选中',
+  `isdelete` varchar(1) DEFAULT NULL COMMENT '是否删除：0否，1是',
+  `province` varchar(50) DEFAULT NULL COMMENT '省份',
+  `city` varchar(50) DEFAULT NULL COMMENT '城市',
+  `bank_branch` varchar(50) DEFAULT NULL COMMENT '支行名称',
+  `bank_saved_mobile` varchar(100) DEFAULT NULL COMMENT '银行预留手机号',
+  PRIMARY KEY (`id`),
+  KEY `idx_card_no` (`card_no`) USING BTREE,
+  KEY `idx_user_id` (`user_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=2945 DEFAULT CHARSET=utf8 COMMENT '用户银行卡绑定表' ;
 
 
