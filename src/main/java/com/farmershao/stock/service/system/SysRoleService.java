@@ -33,31 +33,58 @@ public class SysRoleService {
     @Autowired
     private RedisUtil redisUtil;
 
+    /**
+     * 根据角色ID 查找角色信息
+     * @param id    角色ID
+     * @return
+     */
     public SysRole findById(Long id) {
         return sysRoleMapper.selectByPrimaryKey(id);
     }
 
-    public boolean containsPermission(String id, String permission) {
+    /**
+     * 判断用户是否有对应的权限
+     *
+     * @param roleId     角色Id
+     * @param permission 权限
+     * @return
+     */
+    public boolean containsPermission(String roleId, String permission) {
 
-        String cacheKey = CacheKeyEnum.BACK_PERMISSION_ARRAY.getKey() + id;
+        String cacheKey = CacheKeyEnum.BACK_PERMISSION_ARRAY.getKey() + roleId;
         String permissions = redisUtil.getValue(cacheKey, String.class);
         if (StringUtils.isEmpty(permissions)) {
-            SysRole sysRole = findById(Long.valueOf(id.trim()));
+            SysRole sysRole = findById(Long.valueOf(roleId.trim()));
             permissions = sysRole.getPermissions();
             redisUtil.setValue(cacheKey, permissions, CacheKeyEnum.BACK_PERMISSION_ARRAY.getExpire());
         }
         if (StringUtils.isEmpty(permissions)) {
-            log.warn("没有找到该角色的权限配置,role:" + id);
+            log.warn("没有找到该角色的权限配置,role:" + roleId);
             return false;
         }
         List<String> permissionList = Arrays.asList(permissions.split(","));
         return permissionList.contains(permission);
     }
 
+    /**
+     * 分页查询权限列表
+     *
+     * @param pageNum    页码
+     * @param pageSize   分页大小
+     * @param sysRoleDto 查询条件
+     * @return PageInfo<SysRole>
+     */
     public PageInfo<SysRole> selectList(int pageNum, int pageSize, SysRoleDto sysRoleDto) {
-        return PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> {sysRoleMapper.selectList(sysRoleDto);});
+        return PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> {
+            sysRoleMapper.selectList(sysRoleDto);
+        });
     }
 
+    /**
+     * 更新系统权限
+     * @param sysRole   系统权限
+     * @return
+     */
     public Integer update(SysRole sysRole) {
         try {
             return sysRoleMapper.updateByPrimaryKeySelective(sysRole);

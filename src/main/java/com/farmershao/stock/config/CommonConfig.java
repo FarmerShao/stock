@@ -32,6 +32,6 @@ public class CommonConfig {
     /**
      * JWT 跨域白名单
      */
-    @Value("${jwt.origin.ip}")
-    private String jwtOriginIp;
+    @Value("${jwt.white.ip}")
+    private String jwtWhiteIp;
 }

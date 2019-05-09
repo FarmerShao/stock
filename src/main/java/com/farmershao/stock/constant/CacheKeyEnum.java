@@ -10,6 +10,9 @@ package com.farmershao.stock.constant;
 public enum  CacheKeyEnum {
 
     //======= BackPermission ======
+    /**
+     *
+     */
     BACK_PERMISSION_ARRAY("back.permission.array.", 30 * 60L),
 
     ;

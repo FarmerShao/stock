@@ -47,7 +47,7 @@ public class JwtInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String remoteAddr = request.getRemoteAddr();
-        String originIpStr = commonConfig.getJwtOriginIp();
+        String originIpStr = commonConfig.getJwtWhiteIp();
         String originIp = "";
         if (!StringUtils.isEmpty(originIpStr)) {
             String [] originIps = originIpStr.split(",");
@@ -58,8 +58,9 @@ public class JwtInterceptor extends HandlerInterceptorAdapter {
                 }
             }
         }
+
         if (request.getMethod().equals(RequestMethod.OPTIONS.name())){
-            log.info("浏览器的预请求的处理..");
+            // 浏览器请求时，会先使用一次 OPTIONS 的请求进行预处理
             response.setHeader("Access-Control-Allow-Origin", originIp);
             response.setHeader("Access-Control-Allow-Methods", "*");
             response.setHeader("Access-Control-Max-Age", "3600");
