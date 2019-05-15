@@ -114,4 +114,61 @@ CREATE TABLE `stock_user_bank` (
   KEY `idx_user_id` (`user_id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=2945 DEFAULT CHARSET=utf8 COMMENT '用户银行卡绑定表' ;
 
+CREATE TABLE `stock_entrust_order` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `stock_id` varchar(10) NOT NULL DEFAULT '' COMMENT '股票ID',
+  `stock_name` varchar(20) NOT NULL DEFAULT '' COMMENT '股票',
+  `lots` int(11) NOT NULL DEFAULT '0' COMMENT '股数',
+  `price` decimal(10,4) NOT NULL DEFAULT '0.00' COMMENT '委托价',
+  `type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '委托单类型：1.买 2.卖',
+  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '订单状态：1.未成交 2. 已成交 3. 用户撤销 4.非交易时间提交的委托单',
+  `user_id` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `trigger_price` decimal(10,4) NOT NULL DEFAULT '0.00' COMMENT '触发价',
+  `margin_rate` tinyint(4) NOT NULL DEFAULT '8' COMMENT '保证金倍数:卖单时为0',
+  `margin` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '试算保证金：买单存在，卖单为0',
+  `hold_order_id` int(11) NOT NULL DEFAULT '0' COMMENT '系统平仓时指定持仓单ID',
+  `version` int(11) NOT NULL DEFAULT '1' COMMENT '版本号',
+  `broker` int(11)  NOT NULL DEFAULT '1' COMMENT '经纪人Id',
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '订单创建时间',
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '订单最后修改时间',
+  PRIMARY KEY (`id`),
+  KEY `idx_us_sta_ty` (`user_id`,`status`,`type`) USING BTREE,
+  KEY `idx_created_time` (`created_at`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='委托单';
+
+CREATE TABLE `stock_holding_order` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `stock_id` varchar(10) NOT NULL DEFAULT '' COMMENT '股票ID',
+  `stock_name` varchar(20) NOT NULL DEFAULT '' COMMENT '股票',
+  `lots` int(11) NOT NULL DEFAULT '0' COMMENT '股数',
+  `price` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '成交价',
+  `profit_price` decimal(10,4) NOT NULL DEFAULT '0.00' COMMENT '止盈价',
+  `loss_price` decimal(10,4) NOT NULL DEFAULT '0.00' COMMENT '止损价',
+  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '订单状态：1.持仓 2.平仓',
+  `user_id` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `profit` decimal(10,4) NOT NULL DEFAULT '0.00' COMMENT '盈利',
+  `margin_rate` tinyint(4) NOT NULL DEFAULT '8' COMMENT '保证金倍数',
+  `margin` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '保证金',
+  `valid_day` int(11) NOT NULL DEFAULT '3' COMMENT '持仓有效天数，为0时会被系统平仓',
+  `version` int(11) NOT NULL DEFAULT '1' COMMENT '版本号',
+  `broker` int(11)  NOT NULL DEFAULT '1' COMMENT '经纪人Id',
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '订单创建时间',
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '订单最后修改时间',
+  PRIMARY KEY (`id`),
+  KEY `idx_sta_uid_ty` (`status`,`user_id`,`stock_name`) USING BTREE,
+  KEY `idx_created_time` (`created_at`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='持仓单';
+
+CREATE TABLE `stock_delay_fee` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `holding_order_id` int(11) NOT NULL DEFAULT '0' COMMENT '持仓单ID',
+  `stock_name` varchar(20) NOT NULL DEFAULT '' COMMENT '股票',
+  `user_id` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `delay_fee` decimal(10,4) NOT NULL DEFAULT '8' COMMENT '保证金倍数',
+  `broker` int(11)  NOT NULL DEFAULT '1' COMMENT '经纪人Id',
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '订单创建时间',
+  PRIMARY KEY (`id`),
+  KEY `idx_uid` (`user_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='持仓递延费';
+
 

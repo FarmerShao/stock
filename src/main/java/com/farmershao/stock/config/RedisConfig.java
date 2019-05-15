@@ -1,11 +1,6 @@
 package com.farmershao.stock.config;
 
-/**
- * RedisConfig
- *
- * @author Shao Yu
- * @since 2019/5/7 13:24
- **/
+
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
@@ -21,11 +16,10 @@ import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 /**
- * RedisConfig：key 序列化配置
+ * RedisConfig
  *
  * @author Shao Yu
- * @date 2019/5/7 11:08
- * @since
+ * @since 2019/5/7 13:24
  **/
 @Configuration
 public class RedisConfig {
