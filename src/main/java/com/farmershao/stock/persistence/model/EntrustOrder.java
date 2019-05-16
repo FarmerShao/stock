@@ -23,9 +23,9 @@ public class EntrustOrder {
     private Integer id;
 
     /**
-    * 股票ID
+    * 股票代码
     */
-    @ApiModelProperty(value="股票ID")
+    @ApiModelProperty(value="股票代码")
     private String stockId;
 
     /**
