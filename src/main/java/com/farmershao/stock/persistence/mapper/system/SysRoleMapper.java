@@ -7,22 +7,17 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
+ * SysRoleMapper
+ *
  * @author : Shao Yu
- * @date 2019/5/5 19:19
- * @since : 1.0.0
+ * @since 2019/5/5 19:19
  */
 public interface SysRoleMapper {
-    int deleteByPrimaryKey(Long id);
-
-    int insert(SysRole record);
-
     int insertSelective(SysRole record);
 
-    SysRole selectByPrimaryKey(Long id);
+    SysRole selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKeySelective(SysRole record);
-
-    int updateByPrimaryKey(SysRole record);
 
     /**
      * 查询角色列表

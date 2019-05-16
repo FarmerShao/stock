@@ -22,7 +22,7 @@ CREATE TABLE `sys_admin` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE `stock_user` (
+CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `mobile` varchar(100) NOT NULL DEFAULT'' COMMENT '手机号码',
   `disable_flag` smallint(2)  NOT NULL DEFAULT 1 COMMENT '1 启用 2 黑名单',
@@ -40,7 +40,7 @@ CREATE TABLE `stock_user` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT '用户表' ;
 
-CREATE TABLE `stock_manager` (
+CREATE TABLE `manager` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL DEFAULT '' COMMENT '姓名',
   `mobile` varchar(100) NOT NULL DEFAULT '' COMMENT '手机号',
@@ -49,7 +49,7 @@ CREATE TABLE `stock_manager` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT '经纪人' ;
 
-CREATE TABLE `stock_account` (
+CREATE TABLE `account` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `trade_server_ip` varchar(50) NOT NULL COMMENT '交易服务器IP',
   `trade_port` int(10) DEFAULT NULL COMMENT '端口号',
@@ -71,7 +71,7 @@ CREATE TABLE `stock_account` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COMMENT '股票账户' ;
 
-CREATE TABLE `stock_risk_management` (
+CREATE TABLE `risk_management` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '唯一识别',
   `min_lr` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '最小杠杆比例',
   `max_lr` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '最大杠杆比例',
@@ -86,11 +86,12 @@ CREATE TABLE `stock_risk_management` (
   `user_max_lose` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '允许最大跌幅',
   `user_max_increase` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '允许最大涨幅',
   `user_max_hold` decimal(14,2) NOT NULL DEFAULT '0.00' COMMENT '个人单支股票最大持仓市值',
+  `is_faker` smallint NOT NULL DEFAULT '2' COMMENT '是否开启假盘：1. 开启 2.关闭',
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT '风控配置表' ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT '风控配置表' ;
 
-CREATE TABLE `stock_user_bank` (
+CREATE TABLE `user_bank` (
   `id` bigint(11) unsigned zerofill NOT NULL AUTO_INCREMENT COMMENT '主键',
   `card_no` varchar(100) NOT NULL COMMENT '银行卡号',
   `id_Card` varchar(100) NOT NULL COMMENT '身份证号',
@@ -112,19 +113,19 @@ CREATE TABLE `stock_user_bank` (
   PRIMARY KEY (`id`),
   KEY `idx_card_no` (`card_no`) USING BTREE,
   KEY `idx_user_id` (`user_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2945 DEFAULT CHARSET=utf8 COMMENT '用户银行卡绑定表' ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '用户银行卡绑定表' ;
 
-CREATE TABLE `stock_entrust_order` (
+CREATE TABLE `entrust_order` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
   `stock_id` varchar(10) NOT NULL DEFAULT '' COMMENT '股票代码',
   `stock_name` varchar(20) NOT NULL DEFAULT '' COMMENT '股票',
   `lots` int(11) NOT NULL DEFAULT '0' COMMENT '股数',
+  `deal_lots` int(11) NOT NULL DEFAULT '0' COMMENT '已成交股数',
   `price` decimal(10,4) NOT NULL DEFAULT '0.00' COMMENT '委托价',
   `type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '委托单类型：1.限价单 2.市价单',
   `direction` tinyint(4) NOT NULL DEFAULT '0' COMMENT '委托单方向：1.买 2.卖',
   `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '订单状态：1.未成交 2. 已成交 3.部分成交 4. 用户撤销 5.待提交 6.非交易时间单',
-  `user_id` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
-  `trigger_price` decimal(10,4) NOT NULL DEFAULT '0.00' COMMENT '触发价',
   `margin_rate` tinyint(4) NOT NULL DEFAULT '8' COMMENT '保证金倍数:卖单时为0',
   `margin` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '试算保证金：买单存在，卖单为0',
   `service_fee` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '综合服务费',
@@ -132,15 +133,17 @@ CREATE TABLE `stock_entrust_order` (
   `hold_order_id` int(11) NOT NULL DEFAULT '0' COMMENT '系统平仓时指定持仓单ID',
   `version` int(11) NOT NULL DEFAULT '1' COMMENT '版本号',
   `broker` int(11)  NOT NULL DEFAULT '1' COMMENT '经纪人Id',
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '订单创建时间',
+  `created_date` date NOT NULL COMMENT '订单创建日期',
+  `created_time` time NOT NULL COMMENT '订单创建时间',
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '订单最后修改时间',
   PRIMARY KEY (`id`),
   KEY `idx_us_sta_ty` (`user_id`,`status`,`type`) USING BTREE,
-  KEY `idx_created_time` (`created_at`) USING BTREE
+  KEY `idx_cd` (`created_date`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='委托单';
 
-CREATE TABLE `stock_holding_order` (
+CREATE TABLE `holding_order` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `entrust_order_id` int(11) NOT NULL DEFAULT '0' COMMENT '委托单ID',
   `stock_id` varchar(10) NOT NULL DEFAULT '' COMMENT '股票代码',
   `stock_name` varchar(20) NOT NULL DEFAULT '' COMMENT '股票',
   `lots` int(11) NOT NULL DEFAULT '0' COMMENT '股数',
@@ -156,23 +159,26 @@ CREATE TABLE `stock_holding_order` (
   `valid_day` int(11) NOT NULL DEFAULT '3' COMMENT '持仓有效天数，为0时会被系统平仓',
   `version` int(11) NOT NULL DEFAULT '1' COMMENT '版本号',
   `broker` int(11)  NOT NULL DEFAULT '1' COMMENT '经纪人Id',
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '订单创建时间',
+  `created_date` date NOT NULL COMMENT '订单创建日期',
+  `created_time` time NOT NULL COMMENT '订单创建时间',
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '订单最后修改时间',
   PRIMARY KEY (`id`),
   KEY `idx_sta_uid_ty` (`status`,`user_id`,`stock_name`) USING BTREE,
-  KEY `idx_created_time` (`created_at`) USING BTREE
+  KEY `idx_cd` (`created_date`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='持仓单';
 
-CREATE TABLE `stock_delay_fee` (
+CREATE TABLE `fund_order` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `holding_order_id` int(11) NOT NULL DEFAULT '0' COMMENT '持仓单ID',
-  `stock_name` varchar(20) NOT NULL DEFAULT '' COMMENT '股票',
   `user_id` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
-  `delay_fee` decimal(10,4) NOT NULL DEFAULT '8' COMMENT '保证金倍数',
+  `direction` smallint NOT NULL DEFAULT '1' COMMENT '资金流水方向：1.充值 2.扣除',
+  `type` tinyint(4) NOT NULL DEFAULT '1' COMMENT '流水类型',
+  `type_desc` varchar(20) NOT NULL DEFAULT '' COMMENT '流水原因说明',
+  `fund_amount` decimal(10,4) NOT NULL DEFAULT '0' COMMENT '资金额度',
+  `result_amount` decimal(10,4) NOT NULL DEFAULT '0' COMMENT '变化后的资金总额',
   `broker` int(11)  NOT NULL DEFAULT '1' COMMENT '经纪人Id',
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '订单创建时间',
   PRIMARY KEY (`id`),
-  KEY `idx_uid` (`user_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='持仓递延费';
+  KEY `idx_uid_dir_tp` (`user_id`,`direction`,`type`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='资金账单';
 
 

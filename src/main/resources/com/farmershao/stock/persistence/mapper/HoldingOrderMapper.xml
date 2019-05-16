@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.farmershao.stock.persistence.model.HoldingOrder">
     <!--@mbg.generated-->
     <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="entrust_order_id" jdbcType="INTEGER" property="entrustOrderId" />
     <result column="stock_id" jdbcType="VARCHAR" property="stockId" />
     <result column="stock_name" jdbcType="VARCHAR" property="stockName" />
     <result column="lots" jdbcType="INTEGER" property="lots" />
@@ -15,28 +16,34 @@
     <result column="profit" jdbcType="DECIMAL" property="profit" />
     <result column="margin_rate" jdbcType="TINYINT" property="marginRate" />
     <result column="margin" jdbcType="DECIMAL" property="margin" />
+    <result column="delay_fee" jdbcType="DECIMAL" property="delayFee" />
     <result column="valid_day" jdbcType="INTEGER" property="validDay" />
     <result column="version" jdbcType="INTEGER" property="version" />
     <result column="broker" jdbcType="INTEGER" property="broker" />
-    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="created_date" jdbcType="DATE" property="createdDate" />
+    <result column="created_time" jdbcType="TIME" property="createdTime" />
     <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    id, stock_id, stock_name, lots, price, profit_price, loss_price, `status`, user_id, 
-    profit, margin_rate, margin, valid_day, version, broker, created_at, updated_at
+    id, entrust_order_id, stock_id, stock_name, lots, price, profit_price, loss_price, 
+    `status`, user_id, profit, margin_rate, margin, delay_fee, valid_day, version, broker, 
+    created_date, created_time, updated_at
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--@mbg.generated-->
     select 
     <include refid="Base_Column_List" />
-    from stock_holding_order
+    from holding_order
     where id = #{id,jdbcType=INTEGER}
   </select>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.farmershao.stock.persistence.model.HoldingOrder" useGeneratedKeys="true">
     <!--@mbg.generated-->
-    insert into stock_holding_order
+    insert into holding_order
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="entrustOrderId != null">
+        entrust_order_id,
+      </if>
       <if test="stockId != null">
         stock_id,
       </if>
@@ -70,6 +77,9 @@
       <if test="margin != null">
         margin,
       </if>
+      <if test="delayFee != null">
+        delay_fee,
+      </if>
       <if test="validDay != null">
         valid_day,
       </if>
@@ -79,14 +89,20 @@
       <if test="broker != null">
         broker,
       </if>
-      <if test="createdAt != null">
-        created_at,
+      <if test="createdDate != null">
+        created_date,
+      </if>
+      <if test="createdTime != null">
+        created_time,
       </if>
       <if test="updatedAt != null">
         updated_at,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="entrustOrderId != null">
+        #{entrustOrderId,jdbcType=INTEGER},
+      </if>
       <if test="stockId != null">
         #{stockId,jdbcType=VARCHAR},
       </if>
@@ -120,6 +136,9 @@
       <if test="margin != null">
         #{margin,jdbcType=DECIMAL},
       </if>
+      <if test="delayFee != null">
+        #{delayFee,jdbcType=DECIMAL},
+      </if>
       <if test="validDay != null">
         #{validDay,jdbcType=INTEGER},
       </if>
@@ -129,8 +148,11 @@
       <if test="broker != null">
         #{broker,jdbcType=INTEGER},
       </if>
-      <if test="createdAt != null">
-        #{createdAt,jdbcType=TIMESTAMP},
+      <if test="createdDate != null">
+        #{createdDate,jdbcType=DATE},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIME},
       </if>
       <if test="updatedAt != null">
         #{updatedAt,jdbcType=TIMESTAMP},
@@ -139,8 +161,11 @@
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.farmershao.stock.persistence.model.HoldingOrder">
     <!--@mbg.generated-->
-    update stock_holding_order
+    update holding_order
     <set>
+      <if test="entrustOrderId != null">
+        entrust_order_id = #{entrustOrderId,jdbcType=INTEGER},
+      </if>
       <if test="stockId != null">
         stock_id = #{stockId,jdbcType=VARCHAR},
       </if>
@@ -174,6 +199,9 @@
       <if test="margin != null">
         margin = #{margin,jdbcType=DECIMAL},
       </if>
+      <if test="delayFee != null">
+        delay_fee = #{delayFee,jdbcType=DECIMAL},
+      </if>
       <if test="validDay != null">
         valid_day = #{validDay,jdbcType=INTEGER},
       </if>
@@ -183,8 +211,11 @@
       <if test="broker != null">
         broker = #{broker,jdbcType=INTEGER},
       </if>
-      <if test="createdAt != null">
-        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      <if test="createdDate != null">
+        created_date = #{createdDate,jdbcType=DATE},
+      </if>
+      <if test="createdTime != null">
+        created_time = #{createdTime,jdbcType=TIME},
       </if>
       <if test="updatedAt != null">
         updated_at = #{updatedAt,jdbcType=TIMESTAMP},

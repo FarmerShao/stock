@@ -9,11 +9,9 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * HoldingOrder
- *
- * @author Shao Yu
- * @since 2019/5/15 22:19
- **/
+ * Created by ShaoYu on 2019/5/16.
+ */
+
 @ApiModel(value="com.farmershao.stock.persistence.model.HoldingOrder")
 @Getter
 @Setter
@@ -21,6 +19,12 @@ import lombok.ToString;
 public class HoldingOrder {
     @ApiModelProperty(value="null")
     private Integer id;
+
+    /**
+    * 委托单ID
+    */
+    @ApiModelProperty(value="委托单ID")
+    private Integer entrustOrderId;
 
     /**
     * 股票代码
@@ -59,9 +63,9 @@ public class HoldingOrder {
     private BigDecimal lossPrice;
 
     /**
-    * 订单状态：1.持仓 2.平仓
+    * 订单状态：1.持仓 2.平仓 
     */
-    @ApiModelProperty(value="订单状态：1.持仓 2.平仓")
+    @ApiModelProperty(value="订单状态：1.持仓 2.平仓 ")
     private Byte status;
 
     /**
@@ -89,6 +93,12 @@ public class HoldingOrder {
     private BigDecimal margin;
 
     /**
+    * 过期递延费
+    */
+    @ApiModelProperty(value="过期递延费")
+    private BigDecimal delayFee;
+
+    /**
     * 持仓有效天数，为0时会被系统平仓
     */
     @ApiModelProperty(value="持仓有效天数，为0时会被系统平仓")
@@ -107,10 +117,16 @@ public class HoldingOrder {
     private Integer broker;
 
     /**
+    * 订单创建日期
+    */
+    @ApiModelProperty(value="订单创建日期")
+    private Date createdDate;
+
+    /**
     * 订单创建时间
     */
     @ApiModelProperty(value="订单创建时间")
-    private Date createdAt;
+    private Date createdTime;
 
     /**
     * 订单最后修改时间

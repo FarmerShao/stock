@@ -17,17 +17,12 @@
     <!--@mbg.generated-->
     select 
     <include refid="Base_Column_List" />
-    from stock_manager
+    from manager
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    <!--@mbg.generated-->
-    delete from stock_manager
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.farmershao.stock.persistence.model.Manager" useGeneratedKeys="true">
     <!--@mbg.generated-->
-    insert into stock_manager
+    insert into manager
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="name != null">
         `name`,
@@ -59,7 +54,7 @@
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.farmershao.stock.persistence.model.Manager">
     <!--@mbg.generated-->
-    update stock_manager
+    update manager
     <set>
       <if test="name != null">
         `name` = #{name,jdbcType=VARCHAR},

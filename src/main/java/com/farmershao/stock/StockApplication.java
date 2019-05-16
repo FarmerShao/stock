@@ -12,8 +12,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * StockApplication
  *
  * @author : Shao Yu
- * @date 2019/5/5 19:19
- * @since : 1.0.0
+ * @since 2019/5/5 19:19
  **/
 @SpringBootApplication
 @MapperScan(basePackages = {"com.farmershao.stock.persistence.mapper"})
