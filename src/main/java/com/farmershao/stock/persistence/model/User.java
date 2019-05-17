@@ -2,11 +2,12 @@ package com.farmershao.stock.persistence.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.math.BigDecimal;
-import java.util.Date;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 /**
  * Created by ShaoYu on 2019/5/16.
@@ -90,11 +91,11 @@ public class User {
     * 注册时间
     */
     @ApiModelProperty(value="注册时间")
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
     /**
     * 最后登录时间
     */
     @ApiModelProperty(value="最后登录时间")
-    private Date lastLoginTime;
+    private LocalDateTime lastLoginTime;
 }

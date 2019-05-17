@@ -2,11 +2,12 @@ package com.farmershao.stock.persistence.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.math.BigDecimal;
-import java.util.Date;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 /**
  * Created by ShaoYu on 2019/5/16.
@@ -111,5 +112,5 @@ public class RiskManagement {
     * 更新时间
     */
     @ApiModelProperty(value="更新时间")
-    private Date updatedAt;
+    private LocalDateTime updatedAt;
 }

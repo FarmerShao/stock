@@ -2,11 +2,14 @@ package com.farmershao.stock.persistence.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.math.BigDecimal;
-import java.util.Date;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 /**
  * Created by ShaoYu on 2019/5/16.
@@ -120,17 +123,17 @@ public class EntrustOrder {
     * 订单创建日期
     */
     @ApiModelProperty(value="订单创建日期")
-    private Date createdDate;
+    private LocalDate createdDate;
 
     /**
     * 订单创建时间
     */
     @ApiModelProperty(value="订单创建时间")
-    private Date createdTime;
+    private LocalTime createdTime;
 
     /**
     * 订单最后修改时间
     */
     @ApiModelProperty(value="订单最后修改时间")
-    private Date updatedAt;
+    private LocalDateTime updatedAt;
 }

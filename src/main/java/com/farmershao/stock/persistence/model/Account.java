@@ -2,11 +2,12 @@ package com.farmershao.stock.persistence.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.math.BigDecimal;
-import java.util.Date;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 /**
  * Created by ShaoYu on 2019/5/16.
@@ -105,10 +106,10 @@ public class Account {
     private BigDecimal amountLimit;
 
     @ApiModelProperty(value="null")
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
     @ApiModelProperty(value="null")
-    private Date updatedAt;
+    private LocalDateTime updatedAt;
 
     /**
     * 是否允许担保品建仓 1 允许 2 不允许
