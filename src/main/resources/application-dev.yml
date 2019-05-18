@@ -1,0 +1,57 @@
+server:
+  address: localhost
+  port: 8081
+
+### spring 配置
+spring:
+  application:
+    name: stock-member
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://127.0.0.1:3306/test?characterEncoding=utf-8
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+    #druid 配置
+    maxActive: 20
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    #监控统计用的filter:stat;日志用的filter:log4j;防御sql注入的filter:wall
+    filters: stat,wall,log4j
+    testWhileIdle: true
+    testOnBorrow: false
+    #申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效。
+    testOnReturn: false
+    #配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+    timeBetweenEvictionRunsMillis: 60000
+    #配置一个连接在池中最小生存的时间，单位是毫秒
+    minEvictableIdleTimeMillis: 300000
+    #用来检测连接是否有效的sql，要求是一个查询语句。如果validationQuery为null，testOnBorrow、testOnReturn、testWhileIdle都不会其作用。
+    validationQuery: SELECT 1 FROM DUAL
+    # 通过connectProperties属性来打开mergeSql功能，慢SQL记录
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+  jpa:
+    database: mysql
+    show-sql: true
+  redis:
+    # Redis数据库索引（默认为0）
+    database: 0
+    host: 192.168.24.12
+    port: 6379
+    password: redis
+    #最大建立连接等待时间。如果超过此时间将接到异常。设为-1表示无限制。
+    maxWaitMillis: 1000
+
+### 自定义配置
+jwt:
+  secret: 123456
+  #jwt - token保存时长，long
+  expire:
+    interval: 36000
+  #jwt - 跨域白名单
+  white:
+    ip: 127.0.0.1
+system:
+  dev:
+    mode: true
