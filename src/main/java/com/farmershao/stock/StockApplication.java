@@ -1,8 +1,10 @@
 package com.farmershao.stock;
 
+import com.farmershao.stock.util.SpringManager;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
@@ -10,8 +12,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * StockApplication
  *
  * @author : Shao Yu
- * @date 2019/5/5 19:19
- * @since : 1.0.0
+ * @since 2019/5/5 19:19
  **/
 @SpringBootApplication
 @MapperScan(basePackages = {"com.farmershao.stock.persistence.mapper"})
@@ -20,6 +21,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class StockApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(StockApplication.class, args);
+        ConfigurableApplicationContext applicationContext = SpringApplication.run(StockApplication.class, args);
+        SpringManager.setApplicationContext(applicationContext);
     }
 }

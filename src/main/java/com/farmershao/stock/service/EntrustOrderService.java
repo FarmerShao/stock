@@ -4,13 +4,10 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import com.farmershao.stock.persistence.model.EntrustOrder;
 import com.farmershao.stock.persistence.mapper.EntrustOrderMapper;
-
 /**
- * EntrustOrderService： 委托单服务
- *
- * @author Shao Yu
- * @since 2019/5/15 22:19
- **/
+ * Created by ShaoYu on 2019/5/16.
+ */
+
 @Service
 public class EntrustOrderService{
 

@@ -12,38 +12,27 @@
     <!--@mbg.generated-->
     id, role_name, remark, permissions
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+
+  <select id="selectList" parameterType="com.farmershao.stock.dto.SysRoleDto" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"/>
+    FROM sys_role
+    WHERE 1 = 1
+    <if test="search.id != null">
+      AND id = #{search.id}
+    </if>
+    <if test="search.roleName != null and search.roleName != ''">
+      AND role_name LIKE CONCAT('%',#{search.roleName},'%')
+    </if>
+  </select>
+
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--@mbg.generated-->
     select 
     <include refid="Base_Column_List" />
     from sys_role
     where id = #{id,jdbcType=INTEGER}
   </select>
-
-    <select id="selectList" parameterType="com.farmershao.stock.dto.SysRoleDto" resultMap="BaseResultMap">
-        SELECT <include refid="Base_Column_List"/>
-        FROM sys_role
-        WHERE 1 = 1
-        <if test="search.id != null">
-            AND id = #{search.id}
-        </if>
-        <if test="search.roleName != null and search.roleName != ''">
-            AND role_name LIKE CONCAT('%',#{search.roleName},'%')
-        </if>
-    </select>
-
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    <!--@mbg.generated-->
-    delete from sys_role
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.farmershao.stock.persistence.model.system.SysRole" useGeneratedKeys="true">
-    <!--@mbg.generated-->
-    insert into sys_role (role_name, remark, permissions
-      )
-    values (#{roleName,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{permissions,jdbcType=VARCHAR}
-      )
-  </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.farmershao.stock.persistence.model.system.SysRole" useGeneratedKeys="true">
     <!--@mbg.generated-->
     insert into sys_role
@@ -84,14 +73,6 @@
         permissions = #{permissions,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.farmershao.stock.persistence.model.system.SysRole">
-    <!--@mbg.generated-->
-    update sys_role
-    set role_name = #{roleName,jdbcType=VARCHAR},
-      remark = #{remark,jdbcType=VARCHAR},
-      permissions = #{permissions,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -20,8 +20,7 @@ import java.util.List;
  * 系统用户角色 Service
  *
  * @author : Shao Yu
- * @date 2019/5/5 19:19
- * @since : 1.0.0
+ * @since 2019/5/5 19:19
  */
 @Service
 @Slf4j
@@ -38,7 +37,7 @@ public class SysRoleService {
      * @param id    角色ID
      * @return
      */
-    public SysRole findById(Long id) {
+    public SysRole findById(Integer id) {
         return sysRoleMapper.selectByPrimaryKey(id);
     }
 
@@ -54,7 +53,7 @@ public class SysRoleService {
         String cacheKey = CacheKeyEnum.BACK_PERMISSION_ARRAY.getKey() + roleId;
         String permissions = redisUtil.getValue(cacheKey, String.class);
         if (StringUtils.isEmpty(permissions)) {
-            SysRole sysRole = findById(Long.valueOf(roleId.trim()));
+            SysRole sysRole = findById(Integer.valueOf(roleId.trim()));
             permissions = sysRole.getPermissions();
             redisUtil.setValue(cacheKey, permissions, CacheKeyEnum.BACK_PERMISSION_ARRAY.getExpire());
         }

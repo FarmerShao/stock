@@ -9,6 +9,11 @@ package com.farmershao.stock.constant;
  **/
 public enum  CacheKeyEnum {
 
+    /**
+     * 股票账户资金
+     */
+    ACCOUNT_MONEY("account.money", 12 * 60 * 60L),
+
     //======= BackPermission ======
     /**
      *

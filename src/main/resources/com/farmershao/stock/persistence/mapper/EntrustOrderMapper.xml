@@ -4,38 +4,46 @@
   <resultMap id="BaseResultMap" type="com.farmershao.stock.persistence.model.EntrustOrder">
     <!--@mbg.generated-->
     <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="stock_id" jdbcType="VARCHAR" property="stockId" />
     <result column="stock_name" jdbcType="VARCHAR" property="stockName" />
     <result column="lots" jdbcType="INTEGER" property="lots" />
+    <result column="deal_lots" jdbcType="INTEGER" property="dealLots" />
     <result column="price" jdbcType="DECIMAL" property="price" />
     <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="direction" jdbcType="TINYINT" property="direction" />
     <result column="status" jdbcType="TINYINT" property="status" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="trigger_price" jdbcType="DECIMAL" property="triggerPrice" />
     <result column="margin_rate" jdbcType="TINYINT" property="marginRate" />
     <result column="margin" jdbcType="DECIMAL" property="margin" />
+    <result column="service_fee" jdbcType="DECIMAL" property="serviceFee" />
+    <result column="delay_fee" jdbcType="DECIMAL" property="delayFee" />
     <result column="hold_order_id" jdbcType="INTEGER" property="holdOrderId" />
     <result column="version" jdbcType="INTEGER" property="version" />
     <result column="broker" jdbcType="INTEGER" property="broker" />
-    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="created_date" jdbcType="DATE" property="createdDate" />
+    <result column="created_time" jdbcType="TIME" property="createdTime" />
     <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    id, stock_id, stock_name, lots, price, `type`, `status`, user_id, trigger_price, 
-    margin_rate, margin, hold_order_id, version, broker, created_at, updated_at
+    id, user_id, stock_id, stock_name, lots, deal_lots, price, `type`, direction, `status`, 
+    margin_rate, margin, service_fee, delay_fee, hold_order_id, version, broker, created_date, 
+    created_time, updated_at
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--@mbg.generated-->
     select 
     <include refid="Base_Column_List" />
-    from stock_entrust_order
+    from entrust_order
     where id = #{id,jdbcType=INTEGER}
   </select>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.farmershao.stock.persistence.model.EntrustOrder" useGeneratedKeys="true">
     <!--@mbg.generated-->
-    insert into stock_entrust_order
+    insert into entrust_order
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
       <if test="stockId != null">
         stock_id,
       </if>
@@ -45,26 +53,32 @@
       <if test="lots != null">
         lots,
       </if>
+      <if test="dealLots != null">
+        deal_lots,
+      </if>
       <if test="price != null">
         price,
       </if>
       <if test="type != null">
         `type`,
       </if>
+      <if test="direction != null">
+        direction,
+      </if>
       <if test="status != null">
         `status`,
-      </if>
-      <if test="userId != null">
-        user_id,
-      </if>
-      <if test="triggerPrice != null">
-        trigger_price,
       </if>
       <if test="marginRate != null">
         margin_rate,
       </if>
       <if test="margin != null">
         margin,
+      </if>
+      <if test="serviceFee != null">
+        service_fee,
+      </if>
+      <if test="delayFee != null">
+        delay_fee,
       </if>
       <if test="holdOrderId != null">
         hold_order_id,
@@ -75,14 +89,20 @@
       <if test="broker != null">
         broker,
       </if>
-      <if test="createdAt != null">
-        created_at,
+      <if test="createdDate != null">
+        created_date,
+      </if>
+      <if test="createdTime != null">
+        created_time,
       </if>
       <if test="updatedAt != null">
         updated_at,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
       <if test="stockId != null">
         #{stockId,jdbcType=VARCHAR},
       </if>
@@ -92,26 +112,32 @@
       <if test="lots != null">
         #{lots,jdbcType=INTEGER},
       </if>
+      <if test="dealLots != null">
+        #{dealLots,jdbcType=INTEGER},
+      </if>
       <if test="price != null">
         #{price,jdbcType=DECIMAL},
       </if>
       <if test="type != null">
         #{type,jdbcType=TINYINT},
       </if>
+      <if test="direction != null">
+        #{direction,jdbcType=TINYINT},
+      </if>
       <if test="status != null">
         #{status,jdbcType=TINYINT},
-      </if>
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="triggerPrice != null">
-        #{triggerPrice,jdbcType=DECIMAL},
       </if>
       <if test="marginRate != null">
         #{marginRate,jdbcType=TINYINT},
       </if>
       <if test="margin != null">
         #{margin,jdbcType=DECIMAL},
+      </if>
+      <if test="serviceFee != null">
+        #{serviceFee,jdbcType=DECIMAL},
+      </if>
+      <if test="delayFee != null">
+        #{delayFee,jdbcType=DECIMAL},
       </if>
       <if test="holdOrderId != null">
         #{holdOrderId,jdbcType=INTEGER},
@@ -122,8 +148,11 @@
       <if test="broker != null">
         #{broker,jdbcType=INTEGER},
       </if>
-      <if test="createdAt != null">
-        #{createdAt,jdbcType=TIMESTAMP},
+      <if test="createdDate != null">
+        #{createdDate,jdbcType=DATE},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIME},
       </if>
       <if test="updatedAt != null">
         #{updatedAt,jdbcType=TIMESTAMP},
@@ -132,8 +161,11 @@
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.farmershao.stock.persistence.model.EntrustOrder">
     <!--@mbg.generated-->
-    update stock_entrust_order
+    update entrust_order
     <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
       <if test="stockId != null">
         stock_id = #{stockId,jdbcType=VARCHAR},
       </if>
@@ -143,26 +175,32 @@
       <if test="lots != null">
         lots = #{lots,jdbcType=INTEGER},
       </if>
+      <if test="dealLots != null">
+        deal_lots = #{dealLots,jdbcType=INTEGER},
+      </if>
       <if test="price != null">
         price = #{price,jdbcType=DECIMAL},
       </if>
       <if test="type != null">
         `type` = #{type,jdbcType=TINYINT},
       </if>
+      <if test="direction != null">
+        direction = #{direction,jdbcType=TINYINT},
+      </if>
       <if test="status != null">
         `status` = #{status,jdbcType=TINYINT},
-      </if>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="triggerPrice != null">
-        trigger_price = #{triggerPrice,jdbcType=DECIMAL},
       </if>
       <if test="marginRate != null">
         margin_rate = #{marginRate,jdbcType=TINYINT},
       </if>
       <if test="margin != null">
         margin = #{margin,jdbcType=DECIMAL},
+      </if>
+      <if test="serviceFee != null">
+        service_fee = #{serviceFee,jdbcType=DECIMAL},
+      </if>
+      <if test="delayFee != null">
+        delay_fee = #{delayFee,jdbcType=DECIMAL},
       </if>
       <if test="holdOrderId != null">
         hold_order_id = #{holdOrderId,jdbcType=INTEGER},
@@ -173,8 +211,11 @@
       <if test="broker != null">
         broker = #{broker,jdbcType=INTEGER},
       </if>
-      <if test="createdAt != null">
-        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      <if test="createdDate != null">
+        created_date = #{createdDate,jdbcType=DATE},
+      </if>
+      <if test="createdTime != null">
+        created_time = #{createdTime,jdbcType=TIME},
       </if>
       <if test="updatedAt != null">
         updated_at = #{updatedAt,jdbcType=TIMESTAMP},

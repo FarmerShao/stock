@@ -2,18 +2,19 @@ package com.farmershao.stock.persistence.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.math.BigDecimal;
-import java.util.Date;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
 /**
- * EntrustOrder
- *
- * @author Shao Yu
- * @since 2019/5/15 22:19
- **/
+ * Created by ShaoYu on 2019/5/16.
+ */
+
 @ApiModel(value="com.farmershao.stock.persistence.model.EntrustOrder")
 @Getter
 @Setter
@@ -23,9 +24,15 @@ public class EntrustOrder {
     private Integer id;
 
     /**
-    * 股票ID
+    * 用户ID
     */
-    @ApiModelProperty(value="股票ID")
+    @ApiModelProperty(value="用户ID")
+    private Integer userId;
+
+    /**
+    * 股票代码
+    */
+    @ApiModelProperty(value="股票代码")
     private String stockId;
 
     /**
@@ -41,34 +48,34 @@ public class EntrustOrder {
     private Integer lots;
 
     /**
+    * 已成交股数
+    */
+    @ApiModelProperty(value="已成交股数")
+    private Integer dealLots;
+
+    /**
     * 委托价
     */
     @ApiModelProperty(value="委托价")
     private BigDecimal price;
 
     /**
-    * 委托单类型：1.买 2.卖
+    * 委托单类型：1.限价单 2.市价单
     */
-    @ApiModelProperty(value="委托单类型：1.买 2.卖")
+    @ApiModelProperty(value="委托单类型：1.限价单 2.市价单")
     private Byte type;
 
     /**
-    * 订单状态：1.未成交 2. 已成交 3. 用户撤销 4.非交易时间提交的委托单
+    * 委托单方向：1.买 2.卖
     */
-    @ApiModelProperty(value="订单状态：1.未成交 2. 已成交 3. 用户撤销 4.非交易时间提交的委托单")
+    @ApiModelProperty(value="委托单方向：1.买 2.卖")
+    private Byte direction;
+
+    /**
+    * 订单状态：1.未成交 2. 已成交 3.部分成交 4. 用户撤销 5.待提交 6.非交易时间单
+    */
+    @ApiModelProperty(value="订单状态：1.未成交 2. 已成交 3.部分成交 4. 用户撤销 5.待提交 6.非交易时间单")
     private Byte status;
-
-    /**
-    * 用户ID
-    */
-    @ApiModelProperty(value="用户ID")
-    private Integer userId;
-
-    /**
-    * 触发价
-    */
-    @ApiModelProperty(value="触发价")
-    private BigDecimal triggerPrice;
 
     /**
     * 保证金倍数:卖单时为0
@@ -81,6 +88,18 @@ public class EntrustOrder {
     */
     @ApiModelProperty(value="试算保证金：买单存在，卖单为0")
     private BigDecimal margin;
+
+    /**
+    * 综合服务费
+    */
+    @ApiModelProperty(value="综合服务费")
+    private BigDecimal serviceFee;
+
+    /**
+    * 过期递延费
+    */
+    @ApiModelProperty(value="过期递延费")
+    private BigDecimal delayFee;
 
     /**
     * 系统平仓时指定持仓单ID
@@ -101,14 +120,20 @@ public class EntrustOrder {
     private Integer broker;
 
     /**
+    * 订单创建日期
+    */
+    @ApiModelProperty(value="订单创建日期")
+    private LocalDate createdDate;
+
+    /**
     * 订单创建时间
     */
     @ApiModelProperty(value="订单创建时间")
-    private Date createdAt;
+    private LocalTime createdTime;
 
     /**
     * 订单最后修改时间
     */
     @ApiModelProperty(value="订单最后修改时间")
-    private Date updatedAt;
+    private LocalDateTime updatedAt;
 }
