@@ -118,7 +118,7 @@ CREATE TABLE `user_bank` (
 CREATE TABLE `entrust_order` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
-  `stock_id` varchar(10) NOT NULL DEFAULT '' COMMENT '股票代码',
+  `stock_code` varchar(10) NOT NULL DEFAULT '' COMMENT '股票代码',
   `stock_name` varchar(20) NOT NULL DEFAULT '' COMMENT '股票',
   `lots` int(11) NOT NULL DEFAULT '0' COMMENT '股数',
   `deal_lots` int(11) NOT NULL DEFAULT '0' COMMENT '已成交股数',
@@ -144,7 +144,7 @@ CREATE TABLE `entrust_order` (
 CREATE TABLE `holding_order` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `entrust_order_id` int(11) NOT NULL DEFAULT '0' COMMENT '委托单ID',
-  `stock_id` varchar(10) NOT NULL DEFAULT '' COMMENT '股票代码',
+  `stock_code` varchar(10) NOT NULL DEFAULT '' COMMENT '股票代码',
   `stock_name` varchar(20) NOT NULL DEFAULT '' COMMENT '股票',
   `lots` int(11) NOT NULL DEFAULT '0' COMMENT '股数',
   `price` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '成交价',

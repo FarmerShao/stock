@@ -33,7 +33,7 @@ public class HoldingOrder {
     * 股票代码
     */
     @ApiModelProperty(value="股票代码")
-    private String stockId;
+    private String stockCode;
 
     /**
     * 股票
