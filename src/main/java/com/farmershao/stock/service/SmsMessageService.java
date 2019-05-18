@@ -152,10 +152,20 @@ public class SmsMessageService {
      * @param ip client ip
      */
     private ResponseDto defendVicious(String ip) {
-        //todo key
-        Long tenMinCount = redisUtil.getValue(ip, Long.class);
-        Long oneDayCount = redisUtil.getValue(ip, Long.class);
+        Long tenMinCount = getBrushCount(CacheKeyEnum.TEN_MINUTE_COUNT, ip);
+        Long oneDayCount = getBrushCount(CacheKeyEnum.ONE_DAY_COUNT, ip);
         return ipRequestCheck(tenMinCount, oneDayCount, ip);
+    }
+
+    private Long getBrushCount(CacheKeyEnum key, String ip) {
+        Long count = redisUtil.getValue(key.getKey() + ip, Long.class);
+        if (count == null) {
+            count = 1L;
+        } else {
+            count ++;
+        }
+        redisUtil.setValue(key.getKey() + ip, count, key.getExpire());
+        return count - 1;
     }
 
     private ResponseDto ipRequestCheck(Long tenMinCount, Long oneDayCount, String ip){

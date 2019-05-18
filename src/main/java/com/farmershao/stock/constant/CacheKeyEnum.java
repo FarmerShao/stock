@@ -33,7 +33,10 @@ public enum  CacheKeyEnum {
     SIGN_NAME_LOGIN_SMS_CODE("sign.name.login.sms.code.", 30 * 60L),
     /**短信发送通道验证码 注册数量*/
     SIGN_NAME_LOGIN_SMS_NUM("sign.name.login.sms.num.", 30 * 60L),
-
+    /**10分钟内已发短信数*/
+    TEN_MINUTE_COUNT("ten.minute.count.", 10 * 60L),
+    /**一天已发短信数*/
+    ONE_DAY_COUNT("one.day.count.", 24 * 60 * 60L),
     ;
 
 
