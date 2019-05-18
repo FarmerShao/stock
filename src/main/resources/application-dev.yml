@@ -55,3 +55,20 @@ jwt:
 system:
   dev:
     mode: true
+
+sms:
+  ten:
+    minutes:
+      max: 10
+  one:
+    day:
+      max: 30
+
+###东联中讯
+dlzx:
+  #东联中讯的企业编号
+  xeid: ${dlzx.xeid}
+  #东联中讯的会员账号
+  xuid: ${dlzx.xuid}
+  #东联中讯的会员密码
+  xpwd: ${dlzx.xpwd}

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.farmershao.stock.persistence.mapper.SmsSendLogMapper">
+
+    <resultMap id="ResultMap" type="com.farmershao.stock.persistence.model.SmsSendLog">
+        <id column="id" property="id" />
+        <result column="created_at" property="createdAt" />
+        <result column="updated_at" property="updatedAt" />
+        <result column="creator" property="creator" />
+        <result column="modifier" property="modifier" />
+        <result column="mobile" property="mobile" />
+        <result column="result_type" property="resultType" />
+        <result column="result_code" property="resultCode" />
+        <result column="message" property="message" />
+        <result column="channel" property="channel" />
+        <result column="message_type" property="messageType" />
+    </resultMap>
+
+    <sql id="columns">
+        id,created_at,updated_at,creator,modifier,mobile,result_type,message,result_code, channel, message_type
+    </sql>
+
+    <!-- ======================= common queries =============================== -->
+    <select id="find" parameterType="Long" resultMap="ResultMap" useCache="false">
+        SELECT <include refid="columns"/> FROM strategy_sms_send_log WHERE id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="com.farmershao.stock.persistence.model.SmsSendLog" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO strategy_sms_send_log(<include refid="columns"/>) VALUES (
+        #{id},
+        now(),
+        null,
+        #{creator},
+        null,
+        #{mobile},
+        #{resultType},
+        #{message},
+        #{resultCode},
+        #{channel},
+        #{messageType}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.farmershao.stock.persistence.model.SmsSendLog" >
+        UPDATE strategy_sms_send_log SET
+        <if test="mobile != null and mobile != ''">mobile = #{mobile},</if>
+        <if test="message != null and message != ''">message = #{message},</if>
+        <if test="resultCode != null and resultCode != ''">result_code = #{resultCode},</if>
+        <if test="resultType != null">result_type = #{resultType},</if>
+        modifier = #{modifier},
+        updated_at = now()
+        WHERE
+        id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="long">
+        DELETE FROM strategy_sms_send_log WHERE id = #{id}
+    </delete>
+
+    <!-- ======================= special queries ============================== -->
+    <select id="findPage" parameterType="com.farmershao.stock.persistence.model.SmsSendLog" resultMap="ResultMap" useCache="false">
+        SELECT <include refid="columns"/> FROM strategy_sms_send_log
+        <include refid="condition"/>
+        <include refid="sorting" />
+        <include refid="pagination" />
+    </select>
+
+    <select id="countPage" parameterType="com.farmershao.stock.persistence.model.SmsSendLog" resultType="int">
+        SELECT COUNT(*) FROM strategy_sms_send_log
+        <include refid="condition"/>
+    </select>
+
+    <!-- ======================= query settings =============================== -->
+    <sql id="pagination">
+        <if test="search.pageStart != null">
+            LIMIT #{search.pageStart},#{search.pageSize}
+        </if>
+    </sql>
+
+    <sql id="sorting">
+        <if test="search.orderBy != null and search.orderBy != ''">
+            ORDER BY ${search.orderBy}
+        </if>
+        <if test="search.orderBy == null or search.orderBy == ''">
+            ORDER BY id DESC
+        </if>
+    </sql>
+
+    <sql id="condition">
+        <trim prefix="where" prefixOverrides="and">
+            <if test="search.modifier != null and search.modifier != ''">
+                and modifier = ${search.modifier}
+            </if>
+        </trim>
+    </sql>
+
+</mapper>

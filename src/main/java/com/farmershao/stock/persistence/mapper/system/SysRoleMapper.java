@@ -15,7 +15,7 @@ import java.util.List;
 public interface SysRoleMapper {
     int insertSelective(SysRole record);
 
-    SysRole selectByPrimaryKey(Integer id);
+    SysRole selectByPrimaryKey(Long id);
 
     int updateByPrimaryKeySelective(SysRole record);
 

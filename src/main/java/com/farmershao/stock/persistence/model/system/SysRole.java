@@ -21,7 +21,7 @@ public class SysRole {
     * 角色id
     */
     @ApiModelProperty(value="角色id")
-    private Integer id;
+    private Long id;
 
     /**
     * 角色名

@@ -19,7 +19,7 @@ import lombok.ToString;
 @ToString
 public class SysAdmin {
     @ApiModelProperty(value="null")
-    private Integer id;
+    private Long id;
 
     /**
     * 用户创建时间
@@ -37,7 +37,7 @@ public class SysAdmin {
     * 角色ID
     */
     @ApiModelProperty(value="角色ID")
-    private Integer roleId;
+    private Long roleId;
 
     /**
     * 用户名称
@@ -63,8 +63,8 @@ public class SysAdmin {
     /**
     * 角色类型 ：1.系统管理员
     */
-    @ApiModelProperty(value="角色类型 ：1.系统管理员")
-    private Byte roleType;
+    @ApiModelProperty(value="角色类型")
+    private String roleName;
 
     /**
     * 1.删除 2.未删除

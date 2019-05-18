@@ -3,10 +3,10 @@
 <mapper namespace="com.farmershao.stock.persistence.mapper.system.SysAdminMapper">
   <resultMap id="BaseResultMap" type="com.farmershao.stock.persistence.model.system.SysAdmin">
     <!--@mbg.generated-->
-    <id column="id" jdbcType="INTEGER" property="id" />
+    <id column="id" jdbcType="Long" property="id" />
     <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
     <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
-    <result column="role_id" jdbcType="INTEGER" property="roleId" />
+    <result column="role_id" jdbcType="Long" property="roleId" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="user_pwd" jdbcType="VARCHAR" property="userPwd" />
     <result column="last_login_ip" jdbcType="VARCHAR" property="lastLoginIp" />
@@ -21,14 +21,14 @@
     id, created_at, updated_at, role_id, user_name, user_pwd, last_login_ip, last_login_time, 
     role_type, disable_flag, login_key, remark
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     <!--@mbg.generated-->
     select 
     <include refid="Base_Column_List" />
     from sys_admin
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     <!--@mbg.generated-->
     delete from sys_admin
     where id = #{id,jdbcType=INTEGER}

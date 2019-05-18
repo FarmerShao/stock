@@ -26,7 +26,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(jwtInterceptor)
                 .addPathPatterns("/back/**")
-                .excludePathPatterns("/back/login/**")
+                .excludePathPatterns("/back/sysAdmin/login/**")
                 .order(2);
         registry.addInterceptor(loginInterceptor)
                 .addPathPatterns("/back/**")

@@ -14,4 +14,6 @@ public interface Constant {
     String BACK_USER_DEFAULT_PASSWORD = "123456";
 
     String AES_KEY = "#w$a341#23%2logintknms#@456$@swfname";
+
+    String DEFAULT_ROLE_NAME = "默认用户";
 }

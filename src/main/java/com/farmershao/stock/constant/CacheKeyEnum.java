@@ -19,6 +19,20 @@ public enum  CacheKeyEnum {
      *
      */
     BACK_PERMISSION_ARRAY("back.permission.array.", 30 * 60L),
+    
+    //============= SMS =============
+    /**短信验证码：登录/注册*/
+    LOGIN_SMS_CODE("login.sms.code.", 30 * 60L),
+    /**短信验证码：绑定银行卡*/
+    ADD_BANK_SMS_CODE("add.bank.code.", 30 * 60L),
+    /**短信登录图片验证码*/
+    SMS_IMGCODE_LOGIN("sms.imgcode.login", 30 * 60L),
+    /**短信验证码60S防刷*/
+    SMS_SIXTY_SECONDS("sms.sixty.seconds.", 30 * 60L),
+    /**短信发送通道验证码 注册*/
+    SIGN_NAME_LOGIN_SMS_CODE("sign.name.login.sms.code.", 30 * 60L),
+    /**短信发送通道验证码 注册数量*/
+    SIGN_NAME_LOGIN_SMS_NUM("sign.name.login.sms.num.", 30 * 60L),
 
     ;
 
