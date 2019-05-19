@@ -4,8 +4,7 @@ package com.farmershao.stock.constant;
  * Constant
  *
  * @author : Shao Yu
- * @date 2019/5/5 19:19
- * @since : 1.0.0
+ * @since 2019/5/5 19:19
  **/
 public interface Constant {
 
