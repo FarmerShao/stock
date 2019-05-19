@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.farmershao.stock.persistence.mapper.StrategyLeverageMapper">
+
+    <resultMap type="com.farmershao.stock.persistence.model.StrategyLeverage" id="ResultMap">
+        <id property="id"					        column="id" />
+        <result property="defaultTag"				column="default_tag" />
+        <result property="maxStopLossRate"			column="max_stop_loss_rate" />
+        <result property="warningRate"				column="warning_rate" />
+        <result property="defaultLeverage"				column="default_leverage" />
+    </resultMap>
+
+    <sql id="columns">
+	    id,default_tag,max_stop_loss_rate,warning_rate,default_leverage
+	</sql>
+
+    <!-- ======================= common queries =============================== -->
+    <delete id="delete" parameterType="Long">
+        DELETE FROM strategy_leverage WHERE strategy_leverage.id = #{id}
+    </delete>
+
+    <insert id="insert" parameterType="com.farmershao.stock.persistence.model.StrategyLeverage" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO strategy_leverage (<include refid="columns"/>) VALUES (
+        #{id},
+        #{defaultTag},
+        #{maxStopLossRate},
+        #{warningRate},
+        #{defaultLeverage}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.farmershao.stock.persistence.model.StrategyLeverage">
+        UPDATE strategy_leverage
+        <set>
+            <if test="defaultTag != null">
+                default_tag = #{defaultTag},
+            </if>
+            <if test="maxStopLossRate != null">
+                max_stop_loss_rate = #{maxStopLossRate},
+            </if>
+            <if test="warningRate != null">
+                warning_rate = #{warningRate},
+            </if>
+            <if test="defaultLeverage != null">
+                default_leverage = #{defaultLeverage},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <!-- ======================= special queries =============================== -->
+
+    <select id="findAll" resultMap="ResultMap" useCache="false">
+        SELECT <include refid="columns"/> FROM strategy_leverage order by default_leverage asc
+        LIMIT 3
+    </select>
+
+    <select id="findByLever" resultType="Integer">
+        select count(*) from strategy_leverage
+        where default_leverage=#{defaultLeverage}
+    </select>
+
+    <select id="findLeverageByLever" resultMap="ResultMap" parameterType="java.math.BigDecimal">
+        select <include refid="columns"/> from strategy_leverage
+        where default_leverage=#{defaultLeverage}
+    </select>
+
+</mapper>

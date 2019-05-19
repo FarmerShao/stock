@@ -12,4 +12,10 @@ public interface RiskManagementMapper {
     RiskManagement selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKeySelective(RiskManagement record);
+
+    /**
+     * 查询风控数据库配置
+     * @return  RiskManagement
+     */
+    RiskManagement find();
 }

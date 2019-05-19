@@ -64,34 +64,9 @@ CREATE TABLE `risk_management` (
   `user_max_lose` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '允许最大跌幅',
   `user_max_increase` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '允许最大涨幅',
   `user_max_hold` decimal(14,2) NOT NULL DEFAULT '0.00' COMMENT '个人单支股票最大持仓市值',
-  `is_faker` smallint NOT NULL DEFAULT '2' COMMENT '是否开启假盘：1. 开启 2.关闭',
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT '风控配置表' ;
-
-CREATE TABLE `user_bank` (
-  `id` bigint(11) unsigned zerofill NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `card_no` varchar(100) NOT NULL COMMENT '银行卡号',
-  `id_Card` varchar(100) NOT NULL COMMENT '身份证号',
-  `uname` varchar(50) NOT NULL COMMENT '姓名',
-  `phone` varchar(100) NOT NULL COMMENT '手机号',
-  `user_id` int(20) NOT NULL,
-  `no_agree` varchar(30) DEFAULT NULL COMMENT '协议号',
-  `bank_name` varchar(30) NOT NULL COMMENT '银行名称',
-  `creator` varchar(255) DEFAULT NULL,
-  `modifier` varchar(255) DEFAULT NULL,
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP,
-  `checkedstate` varchar(1) DEFAULT NULL COMMENT '选中状态 0.未选中 1.已选中',
-  `isdelete` varchar(1) DEFAULT NULL COMMENT '是否删除：0否，1是',
-  `province` varchar(50) DEFAULT NULL COMMENT '省份',
-  `city` varchar(50) DEFAULT NULL COMMENT '城市',
-  `bank_branch` varchar(50) DEFAULT NULL COMMENT '支行名称',
-  `bank_saved_mobile` varchar(100) DEFAULT NULL COMMENT '银行预留手机号',
-  PRIMARY KEY (`id`),
-  KEY `idx_card_no` (`card_no`) USING BTREE,
-  KEY `idx_user_id` (`user_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '用户银行卡绑定表' ;
 
 CREATE TABLE `entrust_order` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,

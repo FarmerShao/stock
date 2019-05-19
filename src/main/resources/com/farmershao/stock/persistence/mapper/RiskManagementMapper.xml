@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.farmershao.stock.persistence.mapper.RiskManagementMapper">
   <resultMap id="BaseResultMap" type="com.farmershao.stock.persistence.model.RiskManagement">
-    <!--@mbg.generated-->
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="min_lr" jdbcType="DECIMAL" property="minLr" />
     <result column="max_lr" jdbcType="DECIMAL" property="maxLr" />
@@ -17,24 +16,33 @@
     <result column="user_max_lose" jdbcType="DECIMAL" property="userMaxLose" />
     <result column="user_max_increase" jdbcType="DECIMAL" property="userMaxIncrease" />
     <result column="user_max_hold" jdbcType="DECIMAL" property="userMaxHold" />
-    <result column="is_faker" jdbcType="SMALLINT" property="isFaker" />
     <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
   </resultMap>
   <sql id="Base_Column_List">
-    <!--@mbg.generated-->
-    id, min_lr, max_lr, default_stop_pr, max_stop_pr, min_margin, max_loss_mr, keeping_mr, 
-    strategy_max_point, user_max_point, user_max_buy, user_max_lose, user_max_increase, 
-    user_max_hold, is_faker, updated_at
+    id, min_lr, max_lr, default_stop_pr, max_stop_pr, min_margin, max_loss_mr, keeping_mr,
+    strategy_max_point, user_max_point, user_max_buy, user_max_lose, user_max_increase,
+    user_max_hold, updated_at
   </sql>
+
+  <!--  ================SELECT SQL================================== -->
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    <!--@mbg.generated-->
-    select 
+    select
     <include refid="Base_Column_List" />
     from risk_management
     where id = #{id,jdbcType=INTEGER}
   </select>
+
+  <select id="find" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from risk_management
+    limit 1
+  </select>
+
+  <!--  ================INSERT SQL================================== -->
+
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.farmershao.stock.persistence.model.RiskManagement" useGeneratedKeys="true">
-    <!--@mbg.generated-->
     insert into risk_management
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="minLr != null">
@@ -75,9 +83,6 @@
       </if>
       <if test="userMaxHold != null">
         user_max_hold,
-      </if>
-      <if test="isFaker != null">
-        is_faker,
       </if>
       <if test="updatedAt != null">
         updated_at,
@@ -123,16 +128,15 @@
       <if test="userMaxHold != null">
         #{userMaxHold,jdbcType=DECIMAL},
       </if>
-      <if test="isFaker != null">
-        #{isFaker,jdbcType=SMALLINT},
-      </if>
       <if test="updatedAt != null">
         #{updatedAt,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
+
+  <!--  ================INSERT SQL================================== -->
+
   <update id="updateByPrimaryKeySelective" parameterType="com.farmershao.stock.persistence.model.RiskManagement">
-    <!--@mbg.generated-->
     update risk_management
     <set>
       <if test="minLr != null">
@@ -174,13 +178,11 @@
       <if test="userMaxHold != null">
         user_max_hold = #{userMaxHold,jdbcType=DECIMAL},
       </if>
-      <if test="isFaker != null">
-        is_faker = #{isFaker,jdbcType=SMALLINT},
-      </if>
       <if test="updatedAt != null">
         updated_at = #{updatedAt,jdbcType=TIMESTAMP},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+
 </mapper>

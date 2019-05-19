@@ -18,6 +18,11 @@ public enum ResponseCodeEnum {
      */
     FAILURE(1, "failure"),
 
+    /**
+     * 策略匹配杠杆倍数已达最大保存数量
+     */
+    MAX_MARGIN_RATE_NUMBER(100, "策略匹配杠杆倍数已达最大保存数量"),
+
     ;
 
     private int code;
